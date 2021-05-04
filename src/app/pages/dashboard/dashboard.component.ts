@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import {EventService} from '../../core/services/event.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import Chart from 'chart.js';
     templateUrl: 'dashboard.component.html'
 })
 
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
 
   public canvas : any;
   public ctx;
@@ -16,7 +17,17 @@ export class DashboardComponent implements OnInit{
   public chartEmail;
   public chartHours;
 
-    ngOnInit(){
+  constructor(private eventService: EventService) {
+  }
+
+    ngOnInit() {
+
+    this.eventService.getStudentPage(0).subscribe(
+      (data) => {
+        console.log(data.content);
+      }
+    )
+
       this.chartColor = "#FFFFFF";
 
       this.canvas = document.getElementById("chartHours");
